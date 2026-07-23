@@ -1,0 +1,1 @@
+{"_comment": "Régénéré par notebooks/export_model_config.py avec les vraies features/seuil", "mlflow_model_name": "credit_scoring_lgbm", "mlflow_model_version": "2", "mlflow_tracking_uri": "sqlite:///mlflow.db", "optimal_threshold": 0.52, "features": []}
