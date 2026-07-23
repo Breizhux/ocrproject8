@@ -14,7 +14,6 @@ datas/
 *.pkl
 *.parquet
 *.csv
-mlflow.db
 mlruns/
 mlartifacts/
 
