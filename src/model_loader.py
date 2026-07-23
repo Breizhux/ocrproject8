@@ -10,7 +10,7 @@ import os
 import logging
 from pathlib import Path
 
-import mlflow.pyfunc
+import mlflow.lightgbm
 
 logger = logging.getLogger("model_loader")
 
@@ -60,7 +60,11 @@ class ModelSingleton:
             f"{self._config['mlflow_model_version']}"
         )
         logger.info(f"Chargement du modèle depuis {model_uri} ...")
-        self._model = mlflow.pyfunc.load_model(model_uri)
+        # On charge le modèle NATIF (LGBMClassifier sklearn), pas le pyfunc
+        # générique : mlflow.pyfunc.load_model().predict() renverrait la
+        # classe prédite (0/1) et non la probabilité, car le modèle a été
+        # loggé via mlflow.lightgbm.log_model() avec l'API sklearn.
+        self._model = mlflow.lightgbm.load_model(model_uri)
         logger.info("Modèle chargé en mémoire.")
 
     @property

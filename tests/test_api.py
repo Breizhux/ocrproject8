@@ -28,9 +28,11 @@ def client():
             "optimal_threshold": FAKE_THRESHOLD,
             "features": FAKE_FEATURES,
         }
-        with patch("mlflow.pyfunc.load_model") as mock_load_model:
+        with patch("mlflow.lightgbm.load_model") as mock_load_model:
+            import numpy as np
             fake_model = MagicMock()
-            fake_model.predict.return_value = [0.75]  # proba de défaut simulée
+            # predict_proba renvoie [P(classe0), P(classe1)] par ligne
+            fake_model.predict_proba.return_value = np.array([[0.25, 0.75]])
             mock_load_model.return_value = fake_model
 
             from src.api import app

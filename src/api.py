@@ -72,7 +72,7 @@ def predict(client: ClientData):
         row = pd.DataFrame([[client.features[f] for f in features]], columns=features)
 
         model = model_singleton.model
-        proba = float(model.predict(row)[0])
+        proba = float(model.predict_proba(row)[:, 1][0])
 
     except HTTPException:
         raise
